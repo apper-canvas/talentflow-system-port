@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "name": "Engineering",
+    "managerId": 5,
+    "description": "Software development and technical operations",
+    "employeeCount": 4
+  },
+  {
+    "id": 2,
+    "name": "Marketing",
+    "managerId": 6,
+    "description": "Brand management and customer acquisition",
+    "employeeCount": 2
+  },
+  {
+    "id": 3,
+    "name": "Human Resources",
+    "managerId": 7,
+    "description": "Employee relations and organizational development",
+    "employeeCount": 2
+  },
+  {
+    "id": 4,
+    "name": "Sales",
+    "managerId": 8,
+    "description": "Revenue generation and client relationships",
+    "employeeCount": 2
+  },
+  {
+    "id": 5,
+    "name": "Finance",
+    "managerId": 10,
+    "description": "Financial planning and accounting operations",
+    "employeeCount": 2
+  },
+  {
+    "id": 6,
+    "name": "Customer Support",
+    "managerId": 13,
+    "description": "Customer service and technical support",
+    "employeeCount": 2
+  },
+  {
+    "id": 7,
+    "name": "Design",
+    "managerId": 16,
+    "description": "User experience and visual design",
+    "employeeCount": 2
+  },
+  {
+    "id": 8,
+    "name": "Operations",
+    "managerId": null,
+    "description": "Business operations and process management",
+    "employeeCount": 0
+  },
+  {
+    "id": 9,
+    "name": "Legal",
+    "managerId": null,
+    "description": "Legal compliance and contract management",
+    "employeeCount": 0
+  },
+  {
+    "id": 10,
+    "name": "IT",
+    "managerId": null,
+    "description": "Information technology and infrastructure",
+    "employeeCount": 0
+  }
+]

@@ -1,0 +1,110 @@
+[
+  {
+    "id": 1,
+    "title": "Employee Handbook 2024",
+    "type": "policy",
+    "uploadDate": "2024-01-01",
+    "category": "HR Policies",
+    "fileUrl": "/documents/employee-handbook-2024.pdf",
+    "description": "Complete guide to company policies, procedures, and benefits"
+  },
+  {
+    "id": 2,
+    "title": "Code of Conduct",
+    "type": "policy",
+    "uploadDate": "2024-01-01",
+    "category": "HR Policies",
+    "fileUrl": "/documents/code-of-conduct.pdf",
+    "description": "Professional standards and ethical guidelines for all employees"
+  },
+  {
+    "id": 3,
+    "title": "Remote Work Policy",
+    "type": "policy",
+    "uploadDate": "2023-12-15",
+    "category": "HR Policies",
+    "fileUrl": "/documents/remote-work-policy.pdf",
+    "description": "Guidelines and requirements for remote work arrangements"
+  },
+  {
+    "id": 4,
+    "title": "Benefits Overview 2024",
+    "type": "benefits",
+    "uploadDate": "2024-01-02",
+    "category": "Benefits",
+    "fileUrl": "/documents/benefits-overview-2024.pdf",
+    "description": "Comprehensive overview of health, dental, and retirement benefits"
+  },
+  {
+    "id": 5,
+    "title": "Vacation Policy",
+    "type": "policy",
+    "uploadDate": "2024-01-01",
+    "category": "Time Off",
+    "fileUrl": "/documents/vacation-policy.pdf",
+    "description": "Guidelines for requesting and using vacation time"
+  },
+  {
+    "id": 6,
+    "title": "Performance Review Process",
+    "type": "procedure",
+    "uploadDate": "2023-11-30",
+    "category": "Performance",
+    "fileUrl": "/documents/performance-review-process.pdf",
+    "description": "Annual and quarterly performance evaluation procedures"
+  },
+  {
+    "id": 7,
+    "title": "Emergency Procedures",
+    "type": "safety",
+    "uploadDate": "2024-01-03",
+    "category": "Safety",
+    "fileUrl": "/documents/emergency-procedures.pdf",
+    "description": "Safety protocols and emergency response procedures"
+  },
+  {
+    "id": 8,
+    "title": "IT Security Guidelines",
+    "type": "policy",
+    "uploadDate": "2023-12-20",
+    "category": "IT Security",
+    "fileUrl": "/documents/it-security-guidelines.pdf",
+    "description": "Computer and data security policies and best practices"
+  },
+  {
+    "id": 9,
+    "title": "Onboarding Checklist",
+    "type": "form",
+    "uploadDate": "2024-01-01",
+    "category": "Onboarding",
+    "fileUrl": "/documents/onboarding-checklist.pdf",
+    "description": "New employee onboarding process and required documentation"
+  },
+  {
+    "id": 10,
+    "title": "Training Program Catalog",
+    "type": "training",
+    "uploadDate": "2024-01-05",
+    "category": "Training",
+    "fileUrl": "/documents/training-catalog-2024.pdf",
+    "description": "Available professional development and training opportunities"
+  },
+  {
+    "id": 11,
+    "title": "Diversity and Inclusion Policy",
+    "type": "policy",
+    "uploadDate": "2023-12-01",
+    "category": "HR Policies",
+    "fileUrl": "/documents/diversity-inclusion-policy.pdf",
+    "description": "Company commitment to diversity, equity, and inclusion"
+  },
+  {
+    "id": 12,
+    "title": "Expense Reimbursement Form",
+    "type": "form",
+    "uploadDate": "2024-01-01",
+    "category": "Finance",
+    "fileUrl": "/documents/expense-reimbursement-form.pdf",
+    "description": "Form for submitting business expense reimbursement requests"
+  }
+]
