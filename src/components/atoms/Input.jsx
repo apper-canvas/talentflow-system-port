@@ -29,19 +29,30 @@ const Input = ({
             className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 ${iconClass}`}
           />
         )}
-        <input
-          id={id}
-          type={type}
-          value={value}
-          onChange={onChange}
-          placeholder={placeholder}
-          required={required}
-          className={`${inputClasses} ${iconName ? 'pl-10' : ''}`}
-          {...props}
-        />
+{type === 'textarea' ? (
+          <textarea
+            id={id}
+            value={value}
+            onChange={onChange}
+            placeholder={placeholder}
+            required={required}
+            className={`${inputClasses} ${iconName ? 'pl-10' : ''} min-h-[80px] resize-y`}
+            {...props}
+          />
+        ) : (
+          <input
+            id={id}
+            type={type}
+            value={value}
+            onChange={onChange}
+            placeholder={placeholder}
+            required={required}
+            className={`${inputClasses} ${iconName ? 'pl-10' : ''}`}
+            {...props}
+          />
+        )}
       </div>
     </div>
   )
 }
-
 export default Input

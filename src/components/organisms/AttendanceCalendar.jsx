@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { format, startOfMonth, endOfMonth, parseISO } from 'date-fns'
 import { toast } from 'react-toastify'
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay, isToday, getDay, addMonths, subMonths, parseISO } from 'date-fns'
-import Card from '@/components/atoms/Card'
-import Button from '@/components/atoms/Button'
 import Text from '@/components/atoms/Text'
+import Button from '@/components/atoms/Button'
+import Card from '@/components/atoms/Card'
 import Icon from '@/components/atoms/Icon'
 import Modal from '@/components/molecules/Modal'
-import FormField from '@/components/molecules/FormField'
+import CalendarHeader from '@/components/molecules/CalendarHeader'
+import CalendarGrid from '@/components/molecules/CalendarGrid'
+import TimeTracker from '@/components/molecules/TimeTracker'
+import AttendanceRecord from '@/components/molecules/AttendanceRecord'
+import AttendanceForm from '@/components/molecules/AttendanceForm'
 import { attendanceService, employeeService } from '@/services'
 
 const AttendanceCalendar = () => {
@@ -33,7 +36,6 @@ const AttendanceCalendar = () => {
 
   const monthStart = startOfMonth(currentDate)
   const monthEnd = endOfMonth(currentDate)
-  const monthDays = eachDayOfInterval({ start: monthStart, end: monthEnd })
 
   useEffect(() => {
     loadData()
@@ -194,16 +196,6 @@ const AttendanceCalendar = () => {
     }
   }
 
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'present': return 'bg-green-100 text-green-800'
-      case 'absent': return 'bg-red-100 text-red-800'
-      case 'late': return 'bg-amber-100 text-amber-800'
-      case 'working': return 'bg-blue-100 text-blue-800'
-      default: return 'bg-gray-100 text-gray-800'
-    }
-  }
-
   const getEmployeeName = (employeeId) => {
     const employee = employees.find(emp => emp.id === employeeId)
     return employee ? `${employee.firstName} ${employee.lastName}` : 'Unknown Employee'
@@ -232,126 +224,32 @@ const AttendanceCalendar = () => {
           <Text variant="h2">Time & Attendance</Text>
           <Text variant="body">Track employee attendance and working hours</Text>
         </div>
-        <div className="flex items-center space-x-3">
-          {currentClockIn ? (
-            <Button variant="clock-out" onClick={handleClockOut} iconName="Clock">
-              Clock Out
-            </Button>
-          ) : (
-            <Button variant="clock-in" onClick={handleClockIn} iconName="Clock">
-              Clock In
-            </Button>
-          )}
-          <Button onClick={handleAddRecord} iconName="Plus">
-            Add Record
-          </Button>
-        </div>
+        <Button onClick={handleAddRecord} iconName="Plus">
+          Add Record
+        </Button>
       </div>
 
-      {/* Current Status */}
-      {currentClockIn && (
-        <Card variant="time-tracking">
-          <div className="flex items-center justify-between">
-            <div>
-              <Text variant="h4">Currently Working</Text>
-              <Text variant="body">
-                Clocked in at {format(parseISO(currentClockIn.clockIn), 'h:mm a')}
-              </Text>
-            </div>
-            <div className="text-right">
-              <Text variant="time-large">
-                {format(new Date(), 'h:mm:ss a')}
-              </Text>
-              <Text variant="small">Current Time</Text>
-            </div>
-          </div>
-        </Card>
-      )}
+      {/* Time Tracker */}
+      <TimeTracker
+        currentClockIn={currentClockIn}
+        onClockIn={handleClockIn}
+        onClockOut={handleClockOut}
+      />
 
       {/* Calendar */}
       <Card>
-        {/* Calendar Header */}
-        <div className="flex items-center justify-between mb-6">
-          <Button 
-            variant="ghost" 
-            onClick={() => setCurrentDate(subMonths(currentDate, 1))}
-            iconName="ChevronLeft"
-          >
-            Previous
-          </Button>
-          
-          <Text variant="h3">
-            {format(currentDate, 'MMMM yyyy')}
-          </Text>
-          
-          <Button 
-            variant="ghost" 
-            onClick={() => setCurrentDate(addMonths(currentDate, 1))}
-            iconName="ChevronRight"
-          >
-            Next
-          </Button>
-        </div>
-
-        {/* Days of Week */}
-        <div className="grid grid-cols-7 gap-2 mb-2">
-          {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-            <div key={day} className="p-2 text-center">
-              <Text variant="calendar-header">{day}</Text>
-            </div>
-          ))}
-        </div>
-
-        {/* Calendar Grid */}
-        <div className="grid grid-cols-7 gap-2">
-          {/* Empty cells for days before month start */}
-          {Array.from({ length: getDay(monthStart) }).map((_, index) => (
-            <div key={index} className="h-24"></div>
-          ))}
-          
-          {/* Month days */}
-          {monthDays.map(day => {
-            const dayAttendance = getAttendanceForDate(day)
-            const hasAttendance = dayAttendance.length > 0
-            
-            return (
-              <motion.div
-                key={day.toISOString()}
-                whileHover={{ scale: 1.02 }}
-                className={`
-                  h-24 p-2 border rounded-lg cursor-pointer transition-all
-                  ${isToday(day) ? 'border-primary bg-primary/5' : 'border-gray-200 hover:border-primary/50'}
-                  ${isSameDay(day, selectedDate) ? 'bg-primary/10 border-primary' : ''}
-                `}
-                onClick={() => handleDateClick(day)}
-              >
-                <div className="flex flex-col h-full">
-                  <Text variant="calendar-day" className={isToday(day) ? 'text-primary font-bold' : ''}>
-                    {format(day, 'd')}
-                  </Text>
-                  
-                  {hasAttendance && (
-                    <div className="flex-1 mt-1 space-y-1">
-                      {dayAttendance.slice(0, 2).map(record => (
-                        <div
-                          key={record.id}
-                          className={`text-xs px-1 py-0.5 rounded text-center ${getStatusColor(record.status)}`}
-                        >
-                          {record.status}
-                        </div>
-                      ))}
-                      {dayAttendance.length > 2 && (
-                        <div className="text-xs text-gray-500 text-center">
-                          +{dayAttendance.length - 2} more
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-              </motion.div>
-            )
-          })}
-        </div>
+        <CalendarHeader
+          currentDate={currentDate}
+          onDateChange={setCurrentDate}
+          className="mb-6"
+        />
+        
+        <CalendarGrid
+          currentDate={currentDate}
+          selectedDate={selectedDate}
+          attendanceRecords={attendanceRecords}
+          onDayClick={handleDateClick}
+        />
       </Card>
 
       {/* Time Tracker Modal */}
@@ -364,66 +262,13 @@ const AttendanceCalendar = () => {
           {getAttendanceForDate(selectedDate).length > 0 ? (
             <div className="space-y-3">
               {getAttendanceForDate(selectedDate).map(record => (
-                <Card key={record.id} variant="attendance-record">
-                  <div className="flex items-center justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center space-x-3">
-                        <Text variant="h4">{getEmployeeName(record.employeeId)}</Text>
-                        <span className={`px-2 py-1 text-xs rounded-full ${getStatusColor(record.status)}`}>
-                          {record.status}
-                        </span>
-                      </div>
-                      
-                      <div className="mt-2 grid grid-cols-2 gap-4 text-sm">
-                        {record.clockIn && (
-                          <div>
-                            <Text variant="small">Clock In</Text>
-                            <Text variant="time">{format(parseISO(record.clockIn), 'h:mm a')}</Text>
-                          </div>
-                        )}
-                        {record.clockOut && (
-                          <div>
-                            <Text variant="small">Clock Out</Text>
-                            <Text variant="time">{format(parseISO(record.clockOut), 'h:mm a')}</Text>
-                          </div>
-                        )}
-                        {record.totalHours && (
-                          <div>
-                            <Text variant="small">Total Hours</Text>
-                            <Text variant="time">{record.totalHours}h</Text>
-                          </div>
-                        )}
-                        {record.breakDuration && (
-                          <div>
-                            <Text variant="small">Break Time</Text>
-                            <Text variant="time">{record.breakDuration}min</Text>
-                          </div>
-                        )}
-                      </div>
-                      
-                      {record.notes && (
-                        <Text variant="small" className="mt-2 text-gray-600">
-                          {record.notes}
-                        </Text>
-                      )}
-                    </div>
-                    
-                    <div className="flex items-center space-x-2">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => handleEditRecord(record)}
-                        iconName="Edit"
-                      />
-                      <Button
-                        variant="danger"
-                        size="sm"
-                        onClick={() => handleDeleteRecord(record.id)}
-                        iconName="Trash2"
-                      />
-                    </div>
-                  </div>
-                </Card>
+                <AttendanceRecord
+                  key={record.id}
+                  record={record}
+                  employeeName={getEmployeeName(record.employeeId)}
+                  onEdit={handleEditRecord}
+                  onDelete={handleDeleteRecord}
+                />
               ))}
             </div>
           ) : (
@@ -445,72 +290,14 @@ const AttendanceCalendar = () => {
         onClose={() => setShowRecordModal(false)}
         title={editingRecord ? 'Edit Attendance Record' : 'Add Attendance Record'}
       >
-        <form onSubmit={handleSubmitRecord} className="space-y-4">
-          <FormField
-            label="Employee"
-            type="select"
-            value={formData.employeeId}
-            onChange={(e) => setFormData({ ...formData, employeeId: e.target.value })}
-            options={[
-              { value: '', label: 'Select employee...' },
-              ...employees.map(emp => ({
-                value: emp.id,
-                label: `${emp.firstName} ${emp.lastName}`
-              }))
-            ]}
-            required
-          />
-
-          <FormField
-            label="Date"
-            type="date"
-            value={formData.date}
-            onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-            required
-          />
-
-          <div className="grid grid-cols-2 gap-4">
-            <FormField
-              label="Clock In"
-              type="time"
-              value={formData.clockIn}
-              onChange={(e) => setFormData({ ...formData, clockIn: e.target.value })}
-            />
-
-            <FormField
-              label="Clock Out"
-              type="time"
-              value={formData.clockOut}
-              onChange={(e) => setFormData({ ...formData, clockOut: e.target.value })}
-            />
-          </div>
-
-          <FormField
-            label="Break Duration (minutes)"
-            type="number"
-            value={formData.breakDuration}
-            onChange={(e) => setFormData({ ...formData, breakDuration: e.target.value })}
-            min="0"
-            max="480"
-          />
-
-          <FormField
-            label="Notes"
-            type="textarea"
-            value={formData.notes}
-            onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-            placeholder="Optional notes about this attendance record..."
-          />
-
-          <div className="flex justify-end space-x-3">
-            <Button variant="ghost" onClick={() => setShowRecordModal(false)}>
-              Cancel
-            </Button>
-            <Button type="submit">
-              {editingRecord ? 'Update' : 'Create'} Record
-            </Button>
-          </div>
-        </form>
+        <AttendanceForm
+          formData={formData}
+          employees={employees}
+          isEditing={!!editingRecord}
+          onSubmit={handleSubmitRecord}
+          onCancel={() => setShowRecordModal(false)}
+          onChange={setFormData}
+        />
       </Modal>
     </div>
   )
