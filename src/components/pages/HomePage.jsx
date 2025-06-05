@@ -7,11 +7,12 @@ import Sidebar from '@/components/organisms/Sidebar'
 import DashboardOverview from '@/components/organisms/DashboardOverview'
 import EmployeeDirectory from '@/components/organisms/EmployeeDirectory'
 import LeaveRequestList from '@/components/organisms/LeaveRequestList'
+import AttendanceCalendar from '@/components/organisms/AttendanceCalendar'
 import ComingSoonCard from '@/components/molecules/ComingSoonCard'
-import HeaderInfo from '@/components/molecules/HeaderInfo'
 import { employeeService, leaveRequestService, departmentService } from '@/services'
 
 const HomePage = () => {
+  const [activeView, setActiveView] = useState('dashboard')
   const [stats, setStats] = useState({
     totalEmployees: 0,
     activeLeaves: 0,
@@ -81,10 +82,14 @@ const sidebarItems = [
       {/* Main Content */}
       <div className="flex-1 lg:ml-0 ml-60">
         {/* Header */}
-        <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-10">
+<header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-10">
           <div className="px-6 py-4">
             <div className="flex items-center justify-between">
-              <HeaderInfo activeSection={activeSection} sidebarItems={sidebarItems} />
+              <div className="flex items-center space-x-4">
+                <h1 className="text-xl font-semibold text-gray-800">
+                  {sidebarItems.find(item => item.id === activeSection)?.label || 'Dashboard'}
+                </h1>
+              </div>
               <div className="flex items-center space-x-4">
                 <div className="relative">
                   <Icon name="Bell" className="w-6 h-6 text-gray-400 cursor-pointer hover:text-gray-600" />
@@ -133,10 +138,10 @@ const sidebarItems = [
           {!['dashboard', 'employees', 'leave', 'attendance'].includes(activeSection) && (
             <ComingSoonCard eta={currentComingSoonEta} />
           )}
-        </main>
+</main>
       </div>
     </div>
-)
+  )
 }
 
 export default HomePage
