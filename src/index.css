@@ -44,6 +44,47 @@
       background-position: calc(200px + 100%) 0;
     }
   }
+
+  .calendar-day {
+    @apply transition-all duration-200 cursor-pointer hover:bg-gray-100 rounded-lg;
+  }
+  
+  .calendar-day-today {
+    @apply bg-primary text-white hover:bg-primary-dark;
+  }
+  
+  .calendar-day-selected {
+    @apply bg-primary-light text-white;
+  }
+  
+  .calendar-day-has-attendance {
+    @apply relative;
+  }
+  
+  .calendar-day-has-attendance::after {
+    content: '';
+    @apply absolute bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-secondary rounded-full;
+  }
+  
+  .time-input {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200;
+  }
+  
+  .attendance-status-present {
+    @apply bg-green-100 text-green-800 border-green-200;
+  }
+  
+  .attendance-status-absent {
+    @apply bg-red-100 text-red-800 border-red-200;
+  }
+  
+  .attendance-status-late {
+    @apply bg-amber-100 text-amber-800 border-amber-200;
+  }
+  
+  .attendance-status-working {
+    @apply bg-blue-100 text-blue-800 border-blue-200;
+  }
 }
 
 /* React Toastify customization */

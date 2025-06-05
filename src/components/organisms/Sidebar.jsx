@@ -22,7 +22,7 @@ const Sidebar = ({ sidebarItems, activeSection, setActiveSection }) => {
         </div>
       </div>
 
-      {/* Navigation */}
+{/* Navigation */}
       <nav className="flex-1 p-4 space-y-1">
         {sidebarItems.map((item) => (
           <SidebarItem

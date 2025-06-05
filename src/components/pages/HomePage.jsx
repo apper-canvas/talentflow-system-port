@@ -57,13 +57,13 @@ const HomePage = () => {
     loadStats()
   }, [])
 
-  const sidebarItems = [
+const sidebarItems = [
     { id: 'dashboard', label: 'Dashboard', icon: 'BarChart3', active: true },
     { id: 'employees', label: 'Employees', icon: 'Users', active: true },
     { id: 'leave', label: 'Leave Requests', icon: 'Calendar', active: true },
+    { id: 'attendance', label: 'Time & Attendance', icon: 'Clock', active: true },
     { id: 'organization', label: 'Organization', icon: 'GitBranch', comingSoon: 'Q2 2024' },
     { id: 'documents', label: 'Documents', icon: 'FolderOpen', comingSoon: 'Launching Soon' },
-    { id: 'attendance', label: 'Time & Attendance', icon: 'Clock', comingSoon: 'In Development' },
     { id: 'performance', label: 'Performance', icon: 'Star', comingSoon: 'Coming Soon' },
     { id: 'reports', label: 'Reports', icon: 'TrendingUp', comingSoon: 'Under Construction' }
   ]
@@ -126,13 +126,17 @@ const HomePage = () => {
             </motion.div>
           )}
 
-          {!['dashboard', 'employees', 'leave'].includes(activeSection) && (
+          {activeSection === 'attendance' && (
+            <ComingSoonCard eta="Feature in Development - Calendar Widget & Time Tracking Interface Coming Soon!" />
+          )}
+
+          {!['dashboard', 'employees', 'leave', 'attendance'].includes(activeSection) && (
             <ComingSoonCard eta={currentComingSoonEta} />
           )}
         </main>
       </div>
     </div>
-  )
+)
 }
 
 export default HomePage

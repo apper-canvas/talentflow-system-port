@@ -14,7 +14,7 @@ const Button = ({
   whileTap,
   ...props
 }) => {
-  const baseClasses = 'inline-flex items-center justify-center transition-all duration-200 font-medium rounded-xl'
+const baseClasses = 'inline-flex items-center justify-center transition-all duration-200 font-medium rounded-xl'
 
   const variantClasses = {
     primary: 'bg-primary hover:bg-primary-dark text-white shadow-card',
@@ -28,7 +28,15 @@ const Button = ({
     'employee-status-active': 'bg-green-100 text-green-800',
     'employee-status-inactive': 'bg-gray-100 text-gray-800',
     'sidebar-active': 'bg-primary text-white shadow-card',
-    'sidebar-inactive': 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+    'sidebar-inactive': 'text-gray-600 hover:bg-gray-100 hover:text-gray-900',
+    'clock-in': 'bg-green-500 hover:bg-green-600 text-white shadow-card',
+    'clock-out': 'bg-red-500 hover:bg-red-600 text-white shadow-card',
+    'break-start': 'bg-amber-500 hover:bg-amber-600 text-white',
+    'break-end': 'bg-blue-500 hover:bg-blue-600 text-white',
+    'attendance-present': 'bg-green-100 text-green-800 border border-green-200',
+    'attendance-absent': 'bg-red-100 text-red-800 border border-red-200',
+    'attendance-late': 'bg-amber-100 text-amber-800 border border-amber-200',
+    'attendance-working': 'bg-blue-100 text-blue-800 border border-blue-200'
   }
 
   const sizeClasses = {

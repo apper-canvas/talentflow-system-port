@@ -1,8 +1,17 @@
 import { motion } from 'framer-motion'
 
-const Card = ({ children, className = '', animate = true, ...props }) => {
-  const baseClasses = 'bg-white rounded-2xl shadow-card p-6'
-  const finalClasses = `${baseClasses} ${className}`
+const Card = ({ children, className = '', animate = true, variant = 'default', ...props }) => {
+  const baseClasses = 'bg-white rounded-2xl shadow-card'
+  
+  const variantClasses = {
+    default: 'p-6',
+    compact: 'p-4',
+    'calendar-grid': 'p-2',
+    'time-tracking': 'p-6 border-l-4 border-primary',
+    'attendance-record': 'p-4 border border-gray-200 hover:border-primary transition-colors duration-200'
+  }
+  
+  const finalClasses = `${baseClasses} ${variantClasses[variant]} ${className}`
 
   if (animate) {
     return (

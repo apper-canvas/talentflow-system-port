@@ -4,7 +4,7 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  theme: {
+theme: {
     extend: {
       colors: {
         primary: {
@@ -29,6 +29,13 @@ export default {
           700: '#334155',
           800: '#1e293b',
           900: '#0f172a'
+        },
+        attendance: {
+          present: '#10B981',
+          absent: '#EF4444',
+          late: '#F59E0B',
+          early: '#8B5CF6',
+          working: '#06B6D4'
         }
       },
       fontFamily: {
@@ -44,6 +51,10 @@ export default {
       borderRadius: {
         'xl': '0.75rem',
         '2xl': '1rem'
+      },
+      animation: {
+        'pulse-soft': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'bounce-gentle': 'bounce 1s infinite'
       }
     }
   },
