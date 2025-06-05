@@ -5,8 +5,8 @@ import StatCard from '@/components/molecules/StatCard'
 import EmployeeCard from '@/components/molecules/EmployeeCard'
 import LeaveRequestCard from '@/components/molecules/LeaveRequestCard'
 import EmployeeForm from '@/components/organisms/EmployeeForm'
+import Icon from '@/components/atoms/Icon'
 import { employeeService, leaveRequestService, departmentService } from '@/services'
-
 const DashboardOverview = ({ stats, loadingStats, setStats }) => {
   const [employees, setEmployees] = useState([])
   const [leaveRequests, setLeaveRequests] = useState([])
