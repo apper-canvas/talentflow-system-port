@@ -129,10 +129,16 @@ const sidebarItems = [
             >
               <LeaveRequestList setDashboardStats={setStats} />
             </motion.div>
-          )}
+)}
 
           {activeSection === 'attendance' && (
-            <ComingSoonCard eta="Feature in Development - Calendar Widget & Time Tracking Interface Coming Soon!" />
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-white rounded-2xl shadow-card p-6"
+            >
+              <AttendanceCalendar />
+            </motion.div>
           )}
 
           {!['dashboard', 'employees', 'leave', 'attendance'].includes(activeSection) && (
